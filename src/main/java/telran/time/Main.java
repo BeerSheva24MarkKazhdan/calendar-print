@@ -53,14 +53,20 @@ public class Main {
     }
 
     private static void printTitle(MonthYear monthYear) {
-        System.out.println("\n     " + monthYear.year() + "," + " " + (getMonthName(monthYear.month())));
-        System.out.println("-----------------------------");
-    }
+        MonthName monthName = MonthName.fromValue(monthYear.month());
+    
+    System.out.println("\n     " + monthYear.year() + ", " + monthName.name());
+    System.out.println("-----------------------------");
+}
 
     private static MonthYear getMonthYear(String[] args) {
-        MonthYear monthYear = new MonthYear(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
-        MonthYear monthYear_now = new MonthYear(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
-        return args.length == 2 ? monthYear : monthYear_now;
+        MonthYear res = new MonthYear(0, 0);
+        if (args.length == 2){
+            res = new MonthYear(Integer.parseInt(args[0]), Integer.parseInt(args[1]));  
+        } else {
+            res = new MonthYear(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+        }
+        return res;
     }
 
     private int getOffset(int firstWeekDay){
@@ -72,7 +78,8 @@ public class Main {
         return yearMonth.lengthOfMonth();
     }
     
-    private static String getMonthName(int month) {
+
+    /*private static String getMonthName(int month) {
         return switch (month) {
             case 1 -> "January";
             case 2 -> "February";
@@ -88,5 +95,5 @@ public class Main {
             case 12 -> "December";
             default -> "Invalid month";
         };
-    }
+    }*/
 }
